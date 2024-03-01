@@ -3,9 +3,9 @@ import MainMenu from "../molecules/header/MainMenu";
 
 const MainHeader = () => {
   return (
-    <div>
-        <Logo/>
-        <MainMenu/>
+    <div className="w-full flex justify-between items-center py-3 px-7 fixed bg-gradient">
+      <Logo/>
+      <MainMenu/>
     </div>
   )
 }
