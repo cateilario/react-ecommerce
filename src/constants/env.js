@@ -1,3 +1,4 @@
-// Va a exportar la API_URL al src
+// Va a exportar las constantes al src
 
 export const API_URL = import.meta.env.VITE_API_URL;
+export const TOKEN_NAME = import.meta.env.VITE_TOKEN_NAME;
