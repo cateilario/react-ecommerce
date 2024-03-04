@@ -1,10 +1,21 @@
 import axios from "axios";
 import { API_URL } from "../../constants/env";
+import { setToken } from "../../helpers/auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
 
+  //Utilizar redirecciones de React Router
+  const nav = useNavigate()
+
+  //Manejo de estado: errores
+  const [error, setError] = useState()
+
   const handleSubmit = (e) =>{
     e.preventDefault();
+    // Dejar vacío el array de errores cada vez que enviemos la aplicación
+    setError();
 
     const data = {
       email: e.target.value,
@@ -12,11 +23,14 @@ const Login = () => {
     }
 
     // axios admite 2 parámetros: 
-    axios.post(`${API_URL}/public/login`, data)
-      .then((result) => {
-        localStorage.setItem("token", result.data.data.token)
-      }).catch((error) => {
-        console.log(error)
+    axios
+      .post(`${API_URL}/public/login`, data)
+      .then(resp =>{
+        setToken(resp.data.data.token)
+        nav("/")
+      })
+      .catch((err) => {
+        console.log(err)
       });
   }
 
