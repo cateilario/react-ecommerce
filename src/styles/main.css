@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .bg-gradient{
-    background: linear-gradient(to right, #dadada, #abdbc0, #8bc1a3);
+    background: linear-gradient(to right, #6b6b6b, #555656, #343434);
 }
 
 .menu-item{
