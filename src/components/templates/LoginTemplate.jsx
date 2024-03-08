@@ -1,6 +1,6 @@
 import logoImage from "./../../assets/imgs/logo.svg";
 
-const LoginTemplate = () => {
+const LoginTemplate = ({children, title}) => {
   return (
     <section className="h-full gradient-form bg-gray-200 md:h-screen">
       <div className="container m-auto py-12 px-6 h-full">

@@ -1,11 +1,10 @@
 import axios from "axios";
 import { API_URL } from "../../constants/env";
-import { setToken } from "../../helpers/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoginTemplate from "../templates/LoginTemplate";
 
-const Login = () => {
+const Register = () => {
   // Utilizar redirecciones de React Router
   const nav = useNavigate();
 
@@ -18,13 +17,15 @@ const Login = () => {
     const data = {
       email: e.target.email.value,
       password: e.target.password.value,
+      details: {
+        fullname: e.target.fullname.value,
+      }
     };
 
     axios
       .post(`${API_URL}/public/login`, data)
-      .then((resp) => {
-        setToken(resp.data.data.token);
-        nav("/");
+      .then(() => {
+        nav("/login");
       })
       .catch((err) => {
         setError(err);
@@ -33,9 +34,15 @@ const Login = () => {
   };
 
   return (
-    <LoginTemplate title="Iniciar sesión">
+    <LoginTemplate title="Regístrate">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Nombre completo"
+            name="name"
+            required
+          />
           <input
             type="email"
             placeholder="Correo electrónico"
@@ -56,15 +63,15 @@ const Login = () => {
             className="bg-gradient w-full text-white rounded-full"
             type="submit"
           >
-            Ingresar
+            Crear cuenta
           </button>
-          <Link className="text-gray-500" to="/register">
-            ¿Deseas registrarte?
+          <Link className="text-gray-500" to="/login">
+            Ya tienes cuenta? Inicia sesión
           </Link>
         </div>
         {error && (
           <p className="text-center p-2 bg-red-100 text-red-600">
-            {error?.response?.data?.data}
+            {error?.response?.data.errors[0].message}
           </p>
         )}
       </form>
@@ -72,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
